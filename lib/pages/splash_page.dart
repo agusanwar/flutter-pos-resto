@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:posresto/pages/on_boarding.dart';
 import 'package:posresto/shared/shared_thames.dart';
 
 class SplashPages extends StatefulWidget {
@@ -14,8 +15,12 @@ class _SplashPageState extends State<SplashPages> {
   @override
   void initState() {
     Timer(const Duration(seconds: 3), () {
-      Navigator.pushNamedAndRemoveUntil(
-          context, '/on-boarding', (route) => false);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const OnBoardingPages(),
+        ),
+      );
     });
     super.initState();
   }

@@ -1,8 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:posresto/pages/sign_in_pages.dart';
 import 'package:posresto/pages/sign_up_pages.dart';
+import 'package:posresto/presentation/auth/login_page.dart';
 import 'package:posresto/shared/shared_thames.dart';
 import 'package:posresto/widgets/button.dart';
 
@@ -168,10 +168,10 @@ class _OnBoardingPagesState extends State<OnBoardingPages> {
                         title: "Sign In",
                         color: kGrayColor,
                         onPressed: () {
-                          Navigator.push(
+                          Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const SignInPages(),
+                              builder: (context) => const LoginPage(),
                             ),
                           );
                         },
