@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 Color kWhiteColor = const Color(0xffFFFFFF);
 Color kBlackSoftColor = const Color(0xff2E2F31);
@@ -23,26 +22,6 @@ Color kYellowColor = const Color(0xffFFDF34);
 Color kYellowDarkColor = const Color(0xffFBB600);
 Color kOrangeColor = const Color(0xffF87000);
 Color kOrangeSoftColor = const Color(0xffF94B01);
-
-TextStyle blackTextStyle = GoogleFonts.poppins(color: kBlackColor);
-TextStyle grayTextStyle = GoogleFonts.poppins(color: kGrayColor);
-TextStyle graydarkTextStyle = GoogleFonts.poppins(color: kGray2Color);
-TextStyle graySoftTextStyle = GoogleFonts.poppins(color: kGraySoftColor);
-TextStyle whiteTextStyle = GoogleFonts.poppins(color: kWhiteColor);
-TextStyle blueTextStyle = GoogleFonts.poppins(color: kBlueColor);
-TextStyle greenTextStyle = GoogleFonts.poppins(color: kGreenColor);
-TextStyle purpleTextStyle = GoogleFonts.poppins(color: kPurpleColor);
-TextStyle yellowTextStyle = GoogleFonts.poppins(color: kYellowDarkColor);
-TextStyle redTextStyle = GoogleFonts.poppins(color: kRedColor);
-TextStyle orangeTextStyle = GoogleFonts.poppins(color: kOrangeSoftColor);
-
-FontWeight light = FontWeight.w300;
-FontWeight regular = FontWeight.w400;
-FontWeight medium = FontWeight.w500;
-FontWeight semiBold = FontWeight.w600;
-FontWeight bold = FontWeight.w700;
-FontWeight extraBold = FontWeight.w800;
-FontWeight black = FontWeight.w900;
 
 class AppColors {
   /// primary = #3949AB

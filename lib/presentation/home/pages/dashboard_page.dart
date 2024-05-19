@@ -9,6 +9,7 @@ import 'package:posresto/presentation/auth/bloc/logout/logout_bloc.dart';
 import 'package:posresto/presentation/auth/login_page.dart';
 import 'package:posresto/presentation/home/pages/home_page.dart';
 import 'package:posresto/presentation/home/widgets/nav_item.dart';
+import 'package:posresto/presentation/setting/pages/sync_data.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -22,11 +23,9 @@ class _DashboardPageState extends State<DashboardPage> {
 
   final List<Widget> _pages = [
     const HomePage(),
+    const Center(child: Text('This is page 1')),
     const Center(child: Text('This is page 2')),
-    const Center(child: Text('This is page 3')),
-    const Center(child: Text('This is page 4')),
-    // const ManagePrinterPage(),
-    // const SettingsPage(),
+    const SyncDataPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -86,7 +85,7 @@ class _DashboardPageState extends State<DashboardPage> {
                             iconPath: Assets.icons.setting.path,
                             isActive: _selectedIndex == 3,
                             onTap: () => _onItemTapped(3),
-                            title: 'Report',
+                            title: 'Setting',
                           ),
                           const SpaceHeight(40.0),
                           BlocListener<LogoutBloc, LogoutState>(

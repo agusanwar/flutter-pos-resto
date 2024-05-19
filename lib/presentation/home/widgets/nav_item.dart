@@ -51,8 +51,8 @@ class NavItem extends StatelessWidget {
                   const SpaceHeight(20.0),
                   Text(
                     title,
-                    style: TextStyle(
-                      fontWeight: medium,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w400,
                       color: AppColors.white,
                     ),
                   ),

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:posresto/data/models/product_model.dart';
+import 'package:posresto/core/constants/variables.dart';
+import 'package:posresto/core/extensions/int_ext.dart';
+import 'package:posresto/core/extensions/string_ext.dart';
+import 'package:posresto/data/models/response/product_response_model.dart';
 import '../../../core/components/spaces.dart';
 import '../../../core/constants/colors.dart';
 
 class ProductCard extends StatelessWidget {
-  final ProductModel data;
+  final Product data;
   final VoidCallback onCartButton;
 
   const ProductCard({
@@ -36,6 +39,24 @@ class ProductCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 5,
+                    horizontal: 10,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: AppColors.primary,
+                  ),
+                  child: Text(
+                    data.category?.name ?? '-',
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.white,
+                    ),
+                  ),
+                ),
+                Container(
                   alignment: Alignment.center,
                   padding: const EdgeInsets.all(15.0),
                   margin: const EdgeInsets.only(top: 15.0),
@@ -45,10 +66,12 @@ class ProductCard extends StatelessWidget {
                   ),
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(40.0)),
-                    child: Image.asset(
-                      data.image,
-                      width: 60,
-                      height: 60,
+                    child: Image.network(
+                      data.image!.contains('http')
+                          ? data.image!
+                          : '${Variables.baseUrl}/${data.image}',
+                      width: 80,
+                      height: 80,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -56,7 +79,7 @@ class ProductCard extends StatelessWidget {
                 const Spacer(),
                 FittedBox(
                   child: Text(
-                    data.name,
+                    data.name ?? '-',
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
@@ -69,21 +92,21 @@ class ProductCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    // Flexible(
+                    //   child: FittedBox(
+                    //     child: Text(
+                    //       data.category?.name ?? '-',
+                    //       style: const TextStyle(
+                    //         color: AppColors.black,
+                    //         fontSize: 2,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                     Flexible(
                       child: FittedBox(
                         child: Text(
-                          data.category.value,
-                          style: const TextStyle(
-                            color: AppColors.black,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Flexible(
-                      child: FittedBox(
-                        child: Text(
-                          data.priceFormat,
+                          data.price!.toIntegerFromText.currencyFormatRp,
                           style: const TextStyle(
                             fontWeight: FontWeight.w900,
                             fontSize: 14,

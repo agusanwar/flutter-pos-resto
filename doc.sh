@@ -28,12 +28,18 @@ Integrasi API
         . connection to server
 
         step by step
-        1. model => reperensati dari request dan respon API (Quicktype sofware)
+        1. model => response model => reperensati dari request dan respon API (Quicktype sofware)
             . create response model
+
         2. datasource => dari server
             . create remote datasouce, domain dari backend
             . install dartz untuk handle response API untuk kondisi success dan failed
                 - either for kondisi left = error right = success
+
+            . if install package sqflite for data local by phone database local in device
+                -   sqflite: ^2.3.2
+
+
         3. BLoC state managemnt = peraantara UI dengan data
             . install flutter bloc
             . install bloc
@@ -65,6 +71,8 @@ Integrasi API
                             cek auth data exists check by key
                         - simpan di position login succcess in first
                             .  AuthLocalDataSource().saveAuthData(authResponseModel);
+
+        4. add BLoc to main in blocprovider
 
 
 
