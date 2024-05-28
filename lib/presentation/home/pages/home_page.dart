@@ -4,12 +4,12 @@ import 'package:posresto/core/assets/assets.gen.dart';
 import 'package:posresto/core/components/buttons.dart';
 import 'package:posresto/core/components/spaces.dart';
 import 'package:posresto/core/constants/colors.dart';
-import 'package:posresto/data/models/product_category.dart';
-import 'package:posresto/data/models/product_model.dart';
+import 'package:posresto/presentation/home/pages/bloc/checkout/checkout_bloc.dart';
 import 'package:posresto/presentation/home/pages/bloc/local_product/local_product_bloc.dart';
 import 'package:posresto/presentation/home/widgets/column_button.dart';
 import 'package:posresto/presentation/home/widgets/custom_tab_bar.dart';
 import 'package:posresto/presentation/home/widgets/home_tile.dart';
+import 'package:posresto/presentation/home/widgets/order_menu.dart';
 import 'package:posresto/presentation/home/widgets/product_card.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,7 +22,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final searchController = TextEditingController();
 
-  List<ProductModel> searchResults = [];
+  // List<ProductModel> searchResults = [];
   // final List<ProductModel> products = [
   //   ProductModel(
   //       image: Assets.images.menu1.path,
@@ -208,7 +208,7 @@ class _HomePageState extends State<HomePage> {
                               'All',
                               'Drink',
                               'Food',
-                              'Dissert',
+                              'Desserts',
                             ],
                             initialTabIndex: 0,
                             tabViews: [
@@ -243,9 +243,9 @@ class _HomePageState extends State<HomePage> {
                                             const NeverScrollableScrollPhysics(),
                                         gridDelegate:
                                             const SliverGridDelegateWithFixedCrossAxisCount(
-                                          childAspectRatio: 0.85,
+                                          childAspectRatio: 0.75,
                                           crossAxisCount: 3,
-                                          crossAxisSpacing: 20.0,
+                                          crossAxisSpacing: 25.0,
                                           mainAxisSpacing: 30.0,
                                         ),
                                         itemBuilder: (context, index) =>
@@ -255,136 +255,164 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                       );
                                     });
-                                    // return GridView.builder(
-                                    //   shrinkWrap: true,
-                                    //   itemCount: searchResults.length,
-                                    //   physics:
-                                    //       const NeverScrollableScrollPhysics(),
-                                    //   gridDelegate:
-                                    //       const SliverGridDelegateWithFixedCrossAxisCount(
-                                    //     childAspectRatio: 0.90,
-                                    //     crossAxisCount: 3,
-                                    //     crossAxisSpacing: 25.0,
-                                    //     mainAxisSpacing: 25.0,
-                                    //   ),
-                                    //   itemBuilder: (context, index) =>
-                                    //       ProductCard(
-                                    //     data: searchResults[index],
-                                    //     onCartButton: () {},
-                                    //   ),
-                                    // );
                                   },
                                 ),
                               ),
-                              // if (searchResults
-                              //     .where((element) => element.category.isFood)
-                              //     .toList()
-                              //     .isEmpty)
-                              //   const Padding(
-                              //     padding: EdgeInsets.only(top: 80.0),
-                              //     child: _IsEmpty(),
-                              //   )
-                              // else
-                              //   SizedBox(
-                              //     child: GridView.builder(
-                              //       shrinkWrap: true,
-                              //       itemCount: searchResults
-                              //           .where((element) =>
-                              //               element.category.isFood)
-                              //           .toList()
-                              //           .length,
-                              //       physics:
-                              //           const NeverScrollableScrollPhysics(),
-                              //       gridDelegate:
-                              //           const SliverGridDelegateWithFixedCrossAxisCount(
-                              //         childAspectRatio: 0.90,
-                              //         crossAxisCount: 3,
-                              //         crossAxisSpacing: 25.0,
-                              //         mainAxisSpacing: 25.0,
-                              //       ),
-                              //       itemBuilder: (context, index) =>
-                              //           ProductCard(
-                              //         data: searchResults
-                              //             .where((element) =>
-                              //                 element.category.isFood)
-                              //             .toList()[index],
-                              //         onCartButton: () {},
-                              //       ),
-                              //     ),
-                              //   ),
-                              // if (searchResults
-                              //     .where((element) => element.category.isDrink)
-                              //     .toList()
-                              //     .isEmpty)
-                              //   const Padding(
-                              //     padding: EdgeInsets.only(top: 80.0),
-                              //     child: _IsEmpty(),
-                              //   )
-                              // else
-                              //   SizedBox(
-                              //     child: GridView.builder(
-                              //       shrinkWrap: true,
-                              //       itemCount: searchResults
-                              //           .where((element) =>
-                              //               element.category.isDrink)
-                              //           .toList()
-                              //           .length,
-                              //       physics:
-                              //           const NeverScrollableScrollPhysics(),
-                              //       gridDelegate:
-                              //           const SliverGridDelegateWithFixedCrossAxisCount(
-                              //         childAspectRatio: 0.90,
-                              //         crossAxisCount: 3,
-                              //         crossAxisSpacing: 25.0,
-                              //         mainAxisSpacing: 25.0,
-                              //       ),
-                              //       itemBuilder: (context, index) =>
-                              //           ProductCard(
-                              //         data: searchResults
-                              //             .where((element) =>
-                              //                 element.category.isDrink)
-                              //             .toList()[index],
-                              //         onCartButton: () {},
-                              //       ),
-                              //     ),
-                              //   ),
-                              // if (searchResults
-                              //     .where(
-                              //         (element) => element.category.isDesserts)
-                              //     .toList()
-                              //     .isEmpty)
-                              //   const Padding(
-                              //     padding: EdgeInsets.only(top: 80.0),
-                              //     child: _IsEmpty(),
-                              //   )
-                              // else
-                              //   SizedBox(
-                              //     child: GridView.builder(
-                              //       shrinkWrap: true,
-                              //       itemCount: searchResults
-                              //           .where((element) =>
-                              //               element.category.isDesserts)
-                              //           .toList()
-                              //           .length,
-                              //       physics:
-                              //           const NeverScrollableScrollPhysics(),
-                              //       gridDelegate:
-                              //           const SliverGridDelegateWithFixedCrossAxisCount(
-                              //         childAspectRatio: 0.90,
-                              //         crossAxisCount: 3,
-                              //         crossAxisSpacing: 25.0,
-                              //         mainAxisSpacing: 25.0,
-                              //       ),
-                              //       itemBuilder: (context, index) =>
-                              //           ProductCard(
-                              //         data: searchResults
-                              //             .where((element) =>
-                              //                 element.category.isDesserts)
-                              //             .toList()[index],
-                              //         onCartButton: () {},
-                              //       ),
-                              //     ),
-                              //   ),
+
+                              // TAB DRINK
+                              SizedBox(
+                                child: BlocBuilder<LocalProductBloc,
+                                    LocalProductState>(
+                                  builder: (context, state) {
+                                    return state.maybeWhen(
+                                      orElse: () {
+                                        return const Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      },
+                                      loading: () {
+                                        return const Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      },
+                                      loaded: (products) {
+                                        if (products.isEmpty) {
+                                          return const Center(
+                                            child: Text('No Items Drink'),
+                                          );
+                                        }
+                                        return GridView.builder(
+                                          shrinkWrap: true,
+                                          itemCount: products
+                                              .where((element) =>
+                                                  element.category!.id! == 1)
+                                              .toList()
+                                              .length,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          gridDelegate:
+                                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                            childAspectRatio: 0.75,
+                                            crossAxisCount: 3,
+                                            crossAxisSpacing: 25.0,
+                                            mainAxisSpacing: 30.0,
+                                          ),
+                                          itemBuilder: (context, index) =>
+                                              ProductCard(
+                                            data: products
+                                                .where((element) =>
+                                                    element.category!.id! == 1)
+                                                .toList()[index],
+                                            onCartButton: () {},
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
+                              ),
+
+                              // TAB DATA FOOD
+                              SizedBox(
+                                child: BlocBuilder<LocalProductBloc,
+                                    LocalProductState>(
+                                  builder: (context, state) {
+                                    return state.maybeWhen(orElse: () {
+                                      return const Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    }, loading: () {
+                                      return const Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    }, loaded: (products) {
+                                      if (products.isEmpty) {
+                                        return const Center(
+                                          child: Text('No Items Food'),
+                                        );
+                                      }
+                                      return GridView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: products
+                                            .where((element) =>
+                                                element.category!.id! == 2)
+                                            .toList()
+                                            .length,
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        gridDelegate:
+                                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                          childAspectRatio: 0.75,
+                                          crossAxisCount: 3,
+                                          crossAxisSpacing: 25.0,
+                                          mainAxisSpacing: 30.0,
+                                        ),
+                                        itemBuilder: (context, index) =>
+                                            ProductCard(
+                                          data: products
+                                              .where((element) =>
+                                                  element.category!.id! == 2)
+                                              .toList()[index],
+                                          onCartButton: () {},
+                                        ),
+                                      );
+                                    });
+                                  },
+                                ),
+                              ),
+
+                              // TAB DATA DISSERTS
+                              SizedBox(
+                                child: BlocBuilder<LocalProductBloc,
+                                    LocalProductState>(
+                                  builder: (context, state) {
+                                    return state.maybeWhen(
+                                      orElse: () {
+                                        return const Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      },
+                                      loading: () {
+                                        return const Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      },
+                                      loaded: (products) {
+                                        if (products.isEmpty) {
+                                          return const Center(
+                                            child: Text('No Items Disserts'),
+                                          );
+                                        }
+                                        return GridView.builder(
+                                          shrinkWrap: true,
+                                          itemCount: products
+                                              .where((element) =>
+                                                  element.category!.id! == 3)
+                                              .toList()
+                                              .length,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          gridDelegate:
+                                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                            childAspectRatio: 0.75,
+                                            crossAxisCount: 3,
+                                            crossAxisSpacing: 25.0,
+                                            mainAxisSpacing: 30.0,
+                                          ),
+                                          itemBuilder: (context, index) =>
+                                              ProductCard(
+                                            data: products
+                                                .where((element) =>
+                                                    element.category!.id! == 3)
+                                                .toList()[index],
+                                            onCartButton: () {},
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
+                              ),
                             ],
                           ),
                         ],
@@ -397,209 +425,229 @@ class _HomePageState extends State<HomePage> {
                 flex: 2,
                 child: Align(
                   alignment: Alignment.topCenter,
-                  child: Stack(
-                    children: [
-                      SingleChildScrollView(
-                        padding: const EdgeInsets.all(24.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Orders #1',
-                              style: TextStyle(
-                                color: AppColors.primary,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
+                  child: Container(
+                    color: AppColors.white,
+                    child: Stack(
+                      children: [
+                        SingleChildScrollView(
+                          padding: const EdgeInsets.all(24.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Orders Item',
+                                style: TextStyle(
+                                  color: AppColors.primary,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
-                            ),
-                            const SpaceHeight(8.0),
-                            Row(
-                              children: [
-                                Button.filled(
-                                  width: 120.0,
-                                  height: 40,
-                                  onPressed: () {},
-                                  label: 'Dine In',
-                                ),
-                                const SpaceWidth(8.0),
-                                Button.outlined(
-                                  width: 100.0,
-                                  height: 40,
-                                  onPressed: () {},
-                                  label: 'To Go',
-                                ),
-                              ],
-                            ),
-                            const SpaceHeight(16.0),
-                            const Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Item',
-                                  style: TextStyle(
-                                    color: AppColors.primary,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
+                              const SpaceHeight(20),
+                              Row(
+                                children: [
+                                  Button.filled(
+                                    width: 120.0,
+                                    height: 40,
+                                    onPressed: () {},
+                                    label: 'Dine In',
                                   ),
-                                ),
-                                SizedBox(
-                                  width: 130,
-                                ),
-                                SizedBox(
-                                  width: 50.0,
-                                  child: Text(
-                                    'Qty',
+                                  const SpaceWidth(8.0),
+                                  Button.outlined(
+                                    width: 140.0,
+                                    height: 40,
+                                    onPressed: () {},
+                                    label: 'Take Away',
+                                  ),
+                                ],
+                              ),
+                              const SpaceHeight(20.0),
+                              const Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Item Product',
                                     style: TextStyle(
                                       color: AppColors.primary,
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
-                                ),
-                                SizedBox(
-                                  child: Text(
-                                    'Price',
-                                    style: TextStyle(
-                                      color: AppColors.primary,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
+                                  SizedBox(
+                                    width: 100,
+                                  ),
+                                  SizedBox(
+                                    width: 50.0,
+                                    child: Text(
+                                      'Qty',
+                                      style: TextStyle(
+                                        color: AppColors.primary,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                            const SpaceHeight(8),
-                            const Divider(),
-                            const SpaceHeight(8),
-                            // BlocBuilder<CheckoutBloc, CheckoutState>(
-                            //   builder: (context, state) {
-                            //     return state.maybeWhen(
-                            //       orElse: () => const Center(
-                            //         child: Text('No Items'),
-                            //       ),
-                            //       success: (products, qty, price) {
-                            //         if (products.isEmpty) {
-                            //           return const Center(
-                            //             child: Text('No Items'),
-                            //           );
-                            //         }
-                            //         return ListView.separated(
-                            //           shrinkWrap: true,
-                            //           physics:
-                            //               const NeverScrollableScrollPhysics(),
-                            //           itemBuilder: (context, index) =>
-                            //               OrderMenu(data: products[index]),
-                            //           separatorBuilder: (context, index) =>
-                            //               const SpaceHeight(1.0),
-                            //           itemCount: products.length,
-                            //         );
-                            //       },
-                            //     );
-                            //   },
-                            // ),
-                            const SpaceHeight(8.0),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                ColumnButton(
-                                  label: 'Diskon',
-                                  svgGenImage: Assets.icons.diskon,
-                                  onPressed: () {},
-                                ),
-                                ColumnButton(
-                                  label: 'Pajak',
-                                  svgGenImage: Assets.icons.pajak,
-                                  onPressed: () {},
-                                ),
-                                ColumnButton(
-                                  label: 'Layanan',
-                                  svgGenImage: Assets.icons.layanan,
-                                  onPressed: () {},
-                                ),
-                              ],
-                            ),
-                            const SpaceHeight(8.0),
-                            const Divider(),
-                            const SpaceHeight(8.0),
-                            const Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Pajak',
-                                  style: TextStyle(color: AppColors.grey),
-                                ),
-                                Text(
-                                  '11 %',
-                                  style: TextStyle(
-                                    color: AppColors.primary,
-                                    fontWeight: FontWeight.w600,
+                                  SizedBox(
+                                    child: Text(
+                                      'Price',
+                                      style: TextStyle(
+                                        color: AppColors.primary,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                            const SpaceHeight(8.0),
-                            const Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Diskon',
-                                  style: TextStyle(color: AppColors.grey),
-                                ),
-                                Text(
-                                  'Rp. 0',
-                                  style: TextStyle(
-                                    color: AppColors.primary,
-                                    fontWeight: FontWeight.w600,
+                                ],
+                              ),
+                              const SpaceHeight(8),
+                              const Divider(
+                                color: Colors.black,
+                              ),
+                              const SpaceHeight(8),
+                              BlocBuilder<CheckoutBloc, CheckoutState>(
+                                builder: (context, state) {
+                                  return state.maybeWhen(
+                                    orElse: () => const Center(
+                                      child: Text('No Items'),
+                                    ),
+                                    loaded: (products) {
+                                      if (products.isEmpty) {
+                                        return const Center(
+                                          child: Text('No Items'),
+                                        );
+                                      }
+                                      return ListView.separated(
+                                        shrinkWrap: true,
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        itemBuilder: (context, index) =>
+                                            OrderMenu(data: products[index]),
+                                        separatorBuilder: (context, index) =>
+                                            const SpaceHeight(1.0),
+                                        itemCount: products.length,
+                                      );
+                                    },
+                                  );
+                                },
+                              ),
+                              const SpaceHeight(8.0),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  ColumnButton(
+                                    label: 'Diskon',
+                                    svgGenImage: Assets.icons.diskon,
+                                    onPressed: () {},
                                   ),
-                                ),
-                              ],
-                            ),
-                            const SpaceHeight(8.0),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  'Sub total',
-                                  style: TextStyle(color: AppColors.grey),
-                                ),
-                                // BlocBuilder<CheckoutBloc, CheckoutState>(
-                                //   builder: (context, state) {
-                                //     final price = state.maybeWhen(
-                                //       orElse: () => 0,
-                                //       success: (products, qty, price) => price,
-                                //     );
-                                //     return Text(
-                                //       price.currencyFormatRp,
-                                //       style: const TextStyle(
-                                //         color: AppColors.primary,
-                                //         fontWeight: FontWeight.w600,
-                                //       ),
-                                //     );
-                                //   },
-                                // ),
-                              ],
-                            ),
-                            const SpaceHeight(100.0),
-                          ],
+                                  ColumnButton(
+                                    label: 'Pajak',
+                                    svgGenImage: Assets.icons.pajak,
+                                    onPressed: () {},
+                                  ),
+                                  ColumnButton(
+                                    label: 'Layanan',
+                                    svgGenImage: Assets.icons.layanan,
+                                    onPressed: () {},
+                                  ),
+                                ],
+                              ),
+                              const SpaceHeight(8.0),
+                              const Divider(
+                                color: Colors.black,
+                              ),
+                              const SpaceHeight(8.0),
+                              const Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Pajak',
+                                    style: TextStyle(color: AppColors.red),
+                                  ),
+                                  Text(
+                                    '11 %',
+                                    style: TextStyle(
+                                      color: AppColors.red,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SpaceHeight(8.0),
+                              const Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Diskon',
+                                    style: TextStyle(color: AppColors.green),
+                                  ),
+                                  Text(
+                                    'Rp. 0',
+                                    style: TextStyle(
+                                      color: AppColors.green,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SpaceHeight(8.0),
+                              const Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Sub total',
+                                    style: TextStyle(
+                                      color: AppColors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  // BlocBuilder<CheckoutBloc, CheckoutState>(
+                                  //   builder: (context, state) {
+                                  //     final price = state.maybeWhen(
+                                  //       orElse: () => 0,
+                                  //       success: (products, qty, price) => price,
+                                  //     );
+                                  //     return Text(
+                                  //       price.currencyFormatRp,
+                                  //       style: const TextStyle(
+                                  //         color: AppColors.primary,
+                                  //         fontWeight: FontWeight.w600,
+                                  //       ),
+                                  //     );
+                                  //   },
+                                  // ),
+                                ],
+                              ),
+                              const SpaceHeight(100.0),
+                            ],
+                          ),
                         ),
-                      ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: ColoredBox(
-                          color: AppColors.white,
+                        Align(
+                          alignment: Alignment.bottomCenter,
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 24.0, vertical: 16.0),
-                            child: Button.filled(
-                              onPressed: () {
-                                // context.push(const ConfirmPaymentPage());
-                              },
-                              label: 'Lanjutkan Pembayaran',
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: ColoredBox(
+                              color: Colors.transparent,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 24.0,
+                                  vertical: 16.0,
+                                ),
+                                child: Button.filled(
+                                  onPressed: () {
+                                    // context.push(const ConfirmPaymentPage());
+                                  },
+                                  label: 'Pembayaran',
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

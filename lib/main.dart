@@ -9,6 +9,7 @@ import 'package:posresto/presentation/auth/bloc/login/login_bloc.dart';
 import 'package:posresto/presentation/auth/bloc/logout/logout_bloc.dart';
 import 'package:posresto/presentation/auth/login_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:posresto/presentation/home/pages/bloc/checkout/checkout_bloc.dart';
 import 'package:posresto/presentation/home/pages/bloc/local_product/local_product_bloc.dart';
 import 'package:posresto/presentation/home/pages/dashboard_page.dart';
 import 'package:posresto/presentation/setting/bloc/sync_product/sync_product_bloc.dart';
@@ -45,8 +46,12 @@ class MyApp extends StatelessWidget {
             ProductLocalDatasource.instance,
           ),
         ),
+        BlocProvider(
+          create: (context) => CheckoutBloc(),
+        ),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: "Narve POS",
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),

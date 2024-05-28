@@ -30,16 +30,19 @@ class NavItem extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(12.0)),
           child: ColoredBox(
             color: isActive
-                ? AppColors.disabled.withOpacity(0.25)
+                ? AppColors.disabled.withOpacity(0.50)
                 : Colors.transparent,
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 20,
+              ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   SizedBox(
-                    width: 25.0,
-                    height: 25.0,
+                    width: 24.0,
+                    height: 24.0,
                     child: SvgPicture.asset(
                       iconPath,
                       colorFilter: ColorFilter.mode(
@@ -48,12 +51,15 @@ class NavItem extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SpaceHeight(20.0),
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.white,
+                  const SpaceHeight(10.0),
+                  RotatedBox(
+                    quarterTurns: 3,
+                    child: Text(
+                      title,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.white,
+                      ),
                     ),
                   ),
                 ],

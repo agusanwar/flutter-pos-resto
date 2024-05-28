@@ -32,6 +32,7 @@ class ProductResponseModel {
 class Product {
   final int? id;
   final int? categoryId;
+
   final String? name;
   final String? desc;
   final String? image;
@@ -87,8 +88,8 @@ class Product {
         id: json["productId"],
         categoryId: json["categoryId"],
         category: Category(
-          id: json['categoryId'],
-          name: json['categoryName'],
+          id: json["categoryId"],
+          name: json["categoryName"],
         ),
         name: json["name"],
         desc: json["desc"],
@@ -136,11 +137,10 @@ class Product {
       };
 
   @override
-  bool operator ==(Object other) {
+  bool operator ==(covariant Product other) {
     if (identical(this, other)) return true;
 
-    return other is Product &&
-        other.id == id &&
+    return other.id == id &&
         other.categoryId == categoryId &&
         other.name == name &&
         other.desc == desc &&

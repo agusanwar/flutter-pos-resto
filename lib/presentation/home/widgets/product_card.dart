@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:posresto/core/constants/variables.dart';
 import 'package:posresto/core/extensions/int_ext.dart';
 import 'package:posresto/core/extensions/string_ext.dart';
 import 'package:posresto/data/models/response/product_response_model.dart';
+import 'package:posresto/presentation/home/pages/bloc/checkout/checkout_bloc.dart';
 import '../../../core/components/spaces.dart';
 import '../../../core/constants/colors.dart';
 
@@ -20,7 +22,7 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // context.read<CheckoutBloc>().add(CheckoutEvent.addProduct(data));
+        context.read<CheckoutBloc>().add(CheckoutEvent.addItem(data));
       },
       child: Container(
         padding: const EdgeInsets.all(16.0),
@@ -59,7 +61,7 @@ class ProductCard extends StatelessWidget {
                 Container(
                   alignment: Alignment.center,
                   padding: const EdgeInsets.all(15.0),
-                  margin: const EdgeInsets.only(top: 15.0),
+                  margin: const EdgeInsets.only(top: 5.0),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: AppColors.disabled.withOpacity(0.2),
@@ -70,8 +72,8 @@ class ProductCard extends StatelessWidget {
                       data.image!.contains('http')
                           ? data.image!
                           : '${Variables.baseUrl}/${data.image}',
-                      width: 80,
-                      height: 80,
+                      width: 120,
+                      height: 120,
                       fit: BoxFit.cover,
                     ),
                   ),

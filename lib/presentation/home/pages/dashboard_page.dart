@@ -42,97 +42,108 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: AppColors.white,
         body: Row(
           children: [
             SingleChildScrollView(
               child: ClipRRect(
-                borderRadius:
-                    const BorderRadius.horizontal(right: Radius.circular(80.0)),
+                borderRadius: const BorderRadius.horizontal(
+                  right: Radius.circular(80.0),
+                ),
                 child: SizedBox(
-                  height: context.deviceHeight - 10.0,
+                  height: context.deviceHeight - 20.0,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 80),
+                    padding: const EdgeInsets.symmetric(vertical: 35),
                     child: Container(
                       decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(40),
-                          bottomRight: Radius.circular(40),
+                          topRight: Radius.circular(25),
+                          bottomRight: Radius.circular(25),
                         ),
                         color: AppColors.primary,
                       ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          NavItem(
-                            iconPath: Assets.icons.homeResto.path,
-                            isActive: _selectedIndex == 0,
-                            onTap: () => _onItemTapped(0),
-                            title: 'Home',
-                          ),
-                          NavItem(
-                            iconPath: Assets.icons.discount.path,
-                            isActive: _selectedIndex == 1,
-                            onTap: () => _onItemTapped(1),
-                            title: 'Category',
-                          ),
-                          NavItem(
-                            iconPath: Assets.icons.dashboard.path,
-                            isActive: _selectedIndex == 2,
-                            onTap: () => _onItemTapped(2),
-                            title: 'Product',
-                          ),
-                          NavItem(
-                            iconPath: Assets.icons.setting.path,
-                            isActive: _selectedIndex == 3,
-                            onTap: () => _onItemTapped(3),
-                            title: 'Setting',
-                          ),
-                          const SpaceHeight(40.0),
-                          BlocListener<LogoutBloc, LogoutState>(
-                            listener: (context, state) {
-                              state.maybeMap(
-                                orElse: () {},
-                                error: (e) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(e.message),
-                                      backgroundColor: AppColors.red,
-                                    ),
-                                  );
-                                },
-                                success: (value) {
-                                  AuthLocalDataSource().removeAuthData();
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('Logout success'),
-                                      backgroundColor: AppColors.primary,
-                                    ),
-                                  );
-                                  Navigator.pushReplacement(context,
-                                      MaterialPageRoute(builder: (context) {
-                                    return const LoginPage();
-                                  }));
-                                },
-                              );
-                            },
-                            child: NavItem(
-                              iconPath: Assets.icons.logout.path,
-                              isActive: false,
-                              title: 'Logout',
-                              onTap: () {
-                                context
-                                    .read<LogoutBloc>()
-                                    .add(const LogoutEvent.logout());
-                              },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            NavItem(
+                              iconPath: Assets.icons.homeResto.path,
+                              isActive: _selectedIndex == 0,
+                              onTap: () => _onItemTapped(0),
+                              title: 'Home',
                             ),
-                          ),
-                        ],
+                            NavItem(
+                              iconPath: Assets.icons.discount.path,
+                              isActive: _selectedIndex == 1,
+                              onTap: () => _onItemTapped(1),
+                              title: 'Category',
+                            ),
+                            NavItem(
+                              iconPath: Assets.icons.dashboard.path,
+                              isActive: _selectedIndex == 2,
+                              onTap: () => _onItemTapped(2),
+                              title: 'Product',
+                            ),
+                            NavItem(
+                              iconPath: Assets.icons.setting.path,
+                              isActive: _selectedIndex == 3,
+                              onTap: () => _onItemTapped(3),
+                              title: 'Setting',
+                            ),
+                            // const SpaceHeight(40.0),
+                            const Spacer(),
+                            BlocListener<LogoutBloc, LogoutState>(
+                              listener: (context, state) {
+                                state.maybeMap(
+                                  orElse: () {},
+                                  error: (e) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(e.message),
+                                        backgroundColor: AppColors.red,
+                                      ),
+                                    );
+                                  },
+                                  success: (value) {
+                                    AuthLocalDataSource().removeAuthData();
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text('Logout success'),
+                                        backgroundColor: AppColors.primary,
+                                      ),
+                                    );
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return const LoginPage();
+                                        },
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                              child: NavItem(
+                                iconPath: Assets.icons.logout.path,
+                                isActive: false,
+                                title: 'Logout',
+                                onTap: () {
+                                  context
+                                      .read<LogoutBloc>()
+                                      .add(const LogoutEvent.logout());
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
             ),
+            const SpaceWidth(15),
             Expanded(
               child: _pages[_selectedIndex],
             ),

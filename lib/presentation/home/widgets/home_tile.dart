@@ -28,7 +28,7 @@ class HomeTitle extends StatelessWidget {
               style: TextStyle(
                 color: AppColors.primary,
                 fontSize: 22,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 4.0),
@@ -42,11 +42,11 @@ class HomeTitle extends StatelessWidget {
           ],
         ),
         SizedBox(
-          width: 300.0,
+          width: 200.0,
           child: SearchInput(
             controller: controller,
             onChanged: onChanged,
-            hintText: 'Search for narve pos...',
+            hintText: 'Search item...',
           ),
         ),
       ],
