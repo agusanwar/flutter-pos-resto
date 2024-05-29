@@ -4,8 +4,12 @@ import 'package:posresto/core/assets/assets.gen.dart';
 import 'package:posresto/core/components/buttons.dart';
 import 'package:posresto/core/components/spaces.dart';
 import 'package:posresto/core/constants/colors.dart';
+import 'package:posresto/core/extensions/build_context_ext.dart';
+import 'package:posresto/core/extensions/int_ext.dart';
+import 'package:posresto/core/extensions/string_ext.dart';
 import 'package:posresto/presentation/home/pages/bloc/checkout/checkout_bloc.dart';
 import 'package:posresto/presentation/home/pages/bloc/local_product/local_product_bloc.dart';
+import 'package:posresto/presentation/home/pages/confirm_payment_page.dart';
 import 'package:posresto/presentation/home/widgets/column_button.dart';
 import 'package:posresto/presentation/home/widgets/custom_tab_bar.dart';
 import 'package:posresto/presentation/home/widgets/home_tile.dart';
@@ -430,9 +434,11 @@ class _HomePageState extends State<HomePage> {
                     child: Stack(
                       children: [
                         SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
                           padding: const EdgeInsets.all(24.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               const Text(
                                 'Orders Item',
@@ -557,69 +563,95 @@ class _HomePageState extends State<HomePage> {
                                 color: Colors.black,
                               ),
                               const SpaceHeight(8.0),
-                              const Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Pajak',
-                                    style: TextStyle(color: AppColors.red),
-                                  ),
-                                  Text(
-                                    '11 %',
-                                    style: TextStyle(
-                                      color: AppColors.red,
-                                      fontWeight: FontWeight.w800,
+                              const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 5),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Pajak',
+                                      style: TextStyle(color: AppColors.red),
                                     ),
-                                  ),
-                                ],
+                                    Text(
+                                      '11 %',
+                                      style: TextStyle(
+                                        color: AppColors.red,
+                                        fontWeight: FontWeight.w800,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                               const SpaceHeight(8.0),
-                              const Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Diskon',
-                                    style: TextStyle(color: AppColors.green),
-                                  ),
-                                  Text(
-                                    'Rp. 0',
-                                    style: TextStyle(
-                                      color: AppColors.green,
-                                      fontWeight: FontWeight.w800,
+                              const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 5),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Diskon',
+                                      style: TextStyle(color: AppColors.green),
                                     ),
-                                  ),
-                                ],
+                                    Text(
+                                      'Rp. 0',
+                                      style: TextStyle(
+                                        color: AppColors.green,
+                                        fontWeight: FontWeight.w800,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                               const SpaceHeight(8.0),
-                              const Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Sub total',
-                                    style: TextStyle(
-                                      color: AppColors.black,
-                                      fontWeight: FontWeight.bold,
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 5),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'Sub total',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        color: AppColors.black,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
-                                  ),
-                                  // BlocBuilder<CheckoutBloc, CheckoutState>(
-                                  //   builder: (context, state) {
-                                  //     final price = state.maybeWhen(
-                                  //       orElse: () => 0,
-                                  //       success: (products, qty, price) => price,
-                                  //     );
-                                  //     return Text(
-                                  //       price.currencyFormatRp,
-                                  //       style: const TextStyle(
-                                  //         color: AppColors.primary,
-                                  //         fontWeight: FontWeight.w600,
-                                  //       ),
-                                  //     );
-                                  //   },
-                                  // ),
-                                ],
+                                    BlocBuilder<CheckoutBloc, CheckoutState>(
+                                      builder: (context, state) {
+                                        final price = state.maybeWhen(
+                                          orElse: () => 0,
+                                          // sub total logic
+                                          loaded: (products) {
+                                            if (products.isEmpty) {
+                                              return 0;
+                                            }
+                                            return products
+                                                // if error bud e
+                                                .map((e) =>
+                                                    e.product.price!
+                                                        .toIntegerFromText *
+                                                    e.quantity)
+                                                .reduce((value, element) =>
+                                                    value + element);
+                                          },
+                                        );
+                                        return Text(
+                                          price.currencyFormatRp,
+                                          style: const TextStyle(
+                                            color: AppColors.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
                               ),
                               const SpaceHeight(100.0),
                             ],
@@ -638,7 +670,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 child: Button.filled(
                                   onPressed: () {
-                                    // context.push(const ConfirmPaymentPage());
+                                    context.push(const ConfirmPaymentPage());
                                   },
                                   label: 'Pembayaran',
                                 ),

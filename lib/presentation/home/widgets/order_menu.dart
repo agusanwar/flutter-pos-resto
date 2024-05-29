@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:posresto/core/constants/variables.dart';
 import 'package:posresto/core/extensions/int_ext.dart';
 import 'package:posresto/core/extensions/string_ext.dart';
 import 'package:posresto/data/models/home_product_quantity.dart';
-import 'package:posresto/shared/shared_thames.dart';
+import 'package:posresto/presentation/home/pages/bloc/checkout/checkout_bloc.dart';
 
 import '../../../core/components/spaces.dart';
 import '../../../core/constants/colors.dart';
@@ -74,14 +75,15 @@ class OrderMenu extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    // if (data.quantity > 1) {
-                    // context
-                    //     .read<CheckoutBloc>()
-                    //     .add(CheckoutEvent.removeProduct(data.product));
-                    //       onDeleteTap();
-                    //   // data.quantity--;
-                    //   // setState(() {});
-                    // }
+                    // remove item
+                    if (data.quantity > 1) {
+                      context
+                          .read<CheckoutBloc>()
+                          .add(CheckoutEvent.removeItem(data.product));
+                      // onDeleteTap();
+                      // data.quantity--;
+                      // setState(() {});
+                    }
                   },
                   child: Container(
                     width: 30,
@@ -108,9 +110,9 @@ class OrderMenu extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    // context
-                    //     .read<CheckoutBloc>()
-                    //     .add(CheckoutEvent.addProduct(data.product));
+                    context
+                        .read<CheckoutBloc>()
+                        .add(CheckoutEvent.addItem(data.product));
                     //     onDeleteTap();
                     // data.quantity++;
                     // setState(() {});
